@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package proto;
+
+// ------------------- Base -------------------
+
+message Error {
+  int32 code = 1;
+  string message = 2;
+}
+
+message Empty {}
+
+// ------------------- Auth -------------------
+
+service AuthService {
+    rpc Login(LoginRequest) returns (LoginResponse) {}
+    rpc Signup (SignupRequest) returns (SignupResponse) {}
+    rpc VerifyToken (VerifyTokenRequest) returns (VerifyTokenResponse) {}
+}
+
+message Token {
+    string expires_in = 1;
+    string refresh_token = 2;
+    string id_token = 3;
+}
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    Token data = 1;
+    Error error = 2;
+}
+
+message SignupRequest {
+    string email = 1;
+    string password = 2;
+}
+message SignupResponse {
+    Token data = 1;
+    Error error = 2;
+}
+
+message VerifyTokenRequest {
+    string token = 1;
+}
+message VerifyTokenResponse {
+    Token data = 1;
+    Error error = 2;
+}
+
+// ------------------- Product -------------------
+
+service ProductService {
+    rpc GetProduct(GetProductRequest) returns (GetProductResponse) {}
+    rpc ListProducts(Empty) returns (ListProductsResponse) {}
+}
+
+message Shipping {
+    bool r_tienda = 1;
+    bool d_domicilio = 2;
+    bool r_cercano = 3;
+    bool cash_on_delivery = 4;
+}
+
+message Attribute {
+    bool displayable = 1;
+    string id = 2;
+    string identifier = 3;
+    string name = 4;
+    string usage = 5;
+    string value = 6;
+}
+
+message Prices {
+    int64 list_price = 1;
+    int64 offer_price = 2;
+    int64 discount = 3;
+    int64 discount_percentage = 4;
+    int64 ripley_puntos = 5;
+    string formatted_list_price = 6;
+    string formatted_offer_price = 7;
+    string formatted_discount = 8;
+}
+
+message Product {
+    string unique_id = 1;
+    string part_number = 2;
+    string name = 3;
+    string full_image = 4;
+    repeated string images = 5;
+    Prices prices= 6;
+    string long_description = 7;
+    repeated Attribute attributes = 8;
+    Shipping shipping = 9;
+    string thumbnail_image = 10;
+}
+
+message ListProductsResponse {
+    repeated Product data = 1;
+    Error error = 2;
+}
+
+message GetProductRequest {
+    string sku = 1;
+}
+message GetProductResponse {
+    Product data = 1;
+    Error error = 2;
+}

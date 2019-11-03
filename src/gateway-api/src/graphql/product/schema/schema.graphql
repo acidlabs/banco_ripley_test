@@ -1,0 +1,102 @@
+"Product represents the product model"
+type Product {
+  "unique id string attribute"
+  uniqueId: String
+  "part number string attribute"
+  partNumber: String
+  "name string attribute"
+  name: String
+  "full image string attribute"
+  fullImage: String
+  "images array of strings attribute"
+  images: [String]
+  "prices attribute"
+  prices: Prices
+  "long description string attribute"
+  longDescription: String
+  "attributes array attribute"
+  attributes: [Attribute]
+  "shipping attribute"
+  shipping: Shipping
+  "thumbnail image string attribute"
+  thumbnailImage: String
+}
+
+"Prices represents the prices model"
+type Prices {
+  "list price int attribute"
+  listPrice: Int
+  "offer price int attribute"
+  offerPrice: Int
+  "discount int attribute"
+  discount: Int
+  "discount percentage int attribute"
+  discountPercentage: Int
+  "ripley puntos int attribute"
+  ripleyPuntos: Int
+  "formated list price string attribute"
+  formattedListPrice: String
+  "formatted offer price string attribute"
+  formattedOfferPrice: String
+  "formatted discount string attribute"
+  formattedDiscount: String
+}
+
+"Attribute represents the attribute model"
+type Attribute {
+  "displayable boolean attribute"
+  displayable: Boolean
+  "id string attribute"
+  id: String
+  "identifier string attribute"
+  identifier: String
+  "name string attribute"
+  name: String
+  "usage string attribute"
+  usage: String
+  "value string attribute"
+  value: String
+}
+
+"Shipping represents the shipping model"
+type Shipping {
+  "rTienda boolean attribute"
+  rTienda: Boolean
+  "dDomicilio boolean attribute"
+  dDomicilio: Boolean
+  "rCercano boolean attribute"
+  rCercano: Boolean
+  "Cash on delivery boolean attribute"
+  cashOnDelivery: Boolean
+}
+
+"Get product query payload"
+type GetProductPayload {
+  "The response data"
+  data: Product
+  "The response error"
+  error: Error
+}
+
+"List products query payload"
+type ListProductsPayload {
+  "The response data"
+  data: [Product]
+  "The response error"
+  error: Error
+}
+
+"Error represents the error model"
+type Error {
+  "The error code"
+  code: Int
+  "The error message"
+  message: String
+}
+
+type Query {
+  "Get a product by its sku"
+  getProduct(sku: String!): GetProductPayload!
+  "Get all catalog products"
+  listProducts: ListProductsPayload!
+}
