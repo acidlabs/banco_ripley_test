@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t frperezr/react-test -f ./web-app/Dockerfile ./web-app
+  - docker build -t frperezr/react-test -f ./src/web-app/Dockerfile ./src/web-app
 
 script:
   - docker run frperezr/react-test npm test -- --coverage
