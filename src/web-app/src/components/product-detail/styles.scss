@@ -1,0 +1,21 @@
+.product-image {
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  padding-top: 2rem;
+  min-height: 25rem;
+  max-height: 25rem;
+  overflow: auto;
+
+  img {
+    max-height: 23rem;
+    max-width: 100%;
+  }
+}
+
+.product-data {
+  background-color: white;
+  padding-top: 2rem;
+  min-height: 25rem;
+  max-height: 25rem;
+}
