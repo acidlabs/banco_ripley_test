@@ -1,0 +1,68 @@
+version: "3"
+
+volumes:
+  redis-data:
+    driver: local
+  gateway-api-node-modules:
+    driver: local
+  webapp-node-modules:
+    driver: local
+
+services:
+  nginx:
+    container_name: nginx
+    image: ripley-nginx:0.0.1
+    restart: always
+    ports:
+      - 80:80
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
+
+  products-api:
+    container_name: products-api
+    image: ripley-products-api:0.0.1
+    environment:
+      - PORT=3060
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    ports:
+      - 3060:3060
+
+  gateway-api:
+    container_name: gateway-api
+    image: ripley-gateway-api:0.0.1
+    environment:
+      - PORT=4000
+      - PRODUCTS_HOST=products-api
+      - PRODUCTS_PORT=3060
+      - AUTH_HOST=auth-api
+      - AUTH_PORT=3050
+    ports:
+      - 4000:4000
+    volumes:
+      - ./src/gateway-api:/gateway-api
+      - gateway-api-node-modules:/gateway-api/node_modules
+
+  auth-api:
+    container_name: auth-api
+    image: ripley-auth-api:0.0.1
+    environment:
+      - PORT=3050
+      - FIREBASE_API_KEY=<your_firebase_key>
+    ports:
+      - 3050:3050
+
+  webapp:
+    container_name: webapp
+    image: ripley-webapp:0.0.1
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src/web-app:/webapp
+      - webapp-node-modules:/webapp/node_modules
