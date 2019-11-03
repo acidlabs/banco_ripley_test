@@ -22,7 +22,7 @@ WORKDIR /webapp
 COPY ./package.json ./
 RUN yarn install
 COPY . .
-# RUN yarn build
+RUN yarn build
 
 FROM nginx
 EXPOSE 3000
