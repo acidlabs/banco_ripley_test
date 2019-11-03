@@ -27,7 +27,7 @@ deploy:
   provider: elasticbeanstalk
   region: us-east-2
   app: banco-ripley-test
-  env: BancoRipleyTest-env
+  env: RipleyTest-env
   bucket_name: elasticbeanstalk-us-east-2-052934572495
   bucket_path: docker
   on:
