@@ -25,11 +25,11 @@ after_success:
 
 deploy:
   provider: elasticbeanstalk
-  region: $AWS_REGION
+  region: us-east-2
   app: banco-ripley
-  env: MultiDocker-env
-  bucket_name: $AWS_BUCKET_NAME
-  bucket_path: $AWS_BUCKET_PATH
+  env: BancoRipleyTest-env
+  bucket_name: elasticbeanstalk-us-east-2-052934572495
+  bucket_path: docker
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY

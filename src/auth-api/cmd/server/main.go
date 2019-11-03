@@ -15,9 +15,9 @@ import (
 )
 
 func main() {
-	port := os.Getenv("PORT")
+	port := os.Getenv("AUTH_PORT")
 	if port == "" {
-		log.Fatal("Env variable PORT must be defined")
+		log.Fatal("Env variable AUTH_PORT must be defined")
 	}
 
 	key := os.Getenv("FIREBASE_API_KEY")
