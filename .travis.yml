@@ -9,11 +9,11 @@ script:
   - docker run frperezr/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t frperezr/banco-ripley-webapp ./web-app
-  - docker build -t frperezr/banco-ripley-nginx ./nginx
-  - docker build -t frperezr/banco-ripley-auth-api ./auth-api
-  - docker build -t frperezr/banco-ripley-gateway-api ./gateway-api
-  - docker build -t frperezr/banco-ripley-products-api ./products-api
+  - docker build -t frperezr/banco-ripley-webapp ./src/web-app
+  - docker build -t frperezr/banco-ripley-nginx ./src/nginx
+  - docker build -t frperezr/banco-ripley-auth-api ./src/auth-api
+  - docker build -t frperezr/banco-ripley-gateway-api ./src/gateway-api
+  - docker build -t frperezr/banco-ripley-products-api ./src/products-api
   # Login in to the Docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
