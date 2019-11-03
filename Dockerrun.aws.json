@@ -1,0 +1,48 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "webapp",
+      "image": "frperezr/banco-ripley-webapp",
+      "hostname": "webapp",
+      "essential": false,
+      "memory": 128
+    },
+    {
+      "name": "gateway-api",
+      "image": "frperezr/banco-ripley-gateway-api",
+      "hostname": "gateway-api",
+      "essential": false,
+      "memory": 128,
+      "links": ["products-api", "auth-api"]
+    },
+    {
+      "name": "products-api",
+      "image": "frperezr/banco-ripley-products-api",
+      "hostname": "products-api",
+      "essential": false,
+      "memory": 128
+    },
+    {
+      "name": "auth-api",
+      "image": "frperezr/banco-ripley-auth-api",
+      "hostname": "auth-api",
+      "essential": false,
+      "memory": 128
+    },
+    {
+      "name": "nginx",
+      "image": "frperezr/banco-ripley-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["webapp", "gateway-api"],
+      "memory": 128
+    }
+  ]
+}
