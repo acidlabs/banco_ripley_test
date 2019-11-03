@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-api
+  labels:
+    app: gateway-api
+    service: gateway-api
+spec:
+  ports:
+    - port: 4000
+      name: http
+  selector:
+    app: gateway-api
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ripley-gateway-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-api
+  labels:
+    app: gateway-api
+  annotations:
+    sidecar.istio.io/inject: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-api
+  template:
+    metadata:
+      labels:
+        app: gateway-api
+    spec:
+      serviceAccountName: ripley-gateway-api
+      containers:
+        - name: gateway-api
+          image: frperezr/banco-ripley-gateway-api
+          ports:
+            - containerPort: 4000
+          env:
+            - name: AUTH_PORT
+              value: "3050"
+            - name: AUTH_HOST
+              value: auth-api
+            - name: PRODUCTS_PORT
+              value: "3060"
+            - name: PRODUCTS_HOST
+              value: products-api
+            - name: GATEWAY_PORT
+              value: "4000"
+            - name: FIREBASE_API_KEY
+              value: AIzaSyApdB7QPOfgEZtRWOZE9vJGXJkKPvrLDz8
