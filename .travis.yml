@@ -2,31 +2,31 @@ sudo: required
 services:
   - docker
 
-before_install:
-  - docker build -t frperezr/react-test -f ./src/web-app/Dockerfile ./src/web-app
+# before_install:
+#   - docker build -t frperezr/react-test -f ./src/web-app/Dockerfile ./src/web-app
 
-script:
-  - docker run -e CI=true frperezr/react-test npm test -- --coverage
+# script:
+#   - docker run -e CI=true frperezr/react-test npm test -- --coverage
 
-after_success:
-  - docker build -t frperezr/banco-ripley-webapp ./src/web-app
-  - docker build -t frperezr/banco-ripley-nginx ./src/nginx
-  - docker build -t frperezr/banco-ripley-auth-api ./src/auth-api
-  - docker build -t frperezr/banco-ripley-gateway-api ./src/gateway-api
-  - docker build -t frperezr/banco-ripley-products-api ./src/products-api
-  # Login in to the Docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push them to docker hub
-  - docker push frperezr/banco-ripley-webapp
-  - docker push frperezr/banco-ripley-nginx
-  - docker push frperezr/banco-ripley-auth-api
-  - docker push frperezr/banco-ripley-gateway-api
-  - docker push frperezr/banco-ripley-products-api
+# after_success:
+#   - docker build -t frperezr/banco-ripley-webapp ./src/web-app
+#   - docker build -t frperezr/banco-ripley-nginx ./src/nginx
+#   - docker build -t frperezr/banco-ripley-auth-api ./src/auth-api
+#   - docker build -t frperezr/banco-ripley-gateway-api ./src/gateway-api
+#   - docker build -t frperezr/banco-ripley-products-api ./src/products-api
+#   # Login in to the Docker CLI
+#   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+#   # Take those images and push them to docker hub
+#   - docker push frperezr/banco-ripley-webapp
+#   - docker push frperezr/banco-ripley-nginx
+#   - docker push frperezr/banco-ripley-auth-api
+#   - docker push frperezr/banco-ripley-gateway-api
+#   - docker push frperezr/banco-ripley-products-api
 
 deploy:
   provider: elasticbeanstalk
   region: us-east-2
-  app: banco-ripley-test
+  app: ripley_test
   env: RipleyTest-env
   bucket_name: elasticbeanstalk-us-east-2-052934572495
   bucket_path: docker
