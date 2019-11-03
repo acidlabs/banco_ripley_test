@@ -15,9 +15,9 @@ import (
 )
 
 func main() {
-	port := os.Getenv("PORT")
+	port := os.Getenv("PRODUCTS_PORT")
 	if port == "" {
-		log.Fatal("Env variable PORT must be defined")
+		log.Fatal("Env variable PRODUCTS_PORT must be defined")
 	}
 
 	rconf := database.RedisConf{

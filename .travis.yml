@@ -3,17 +3,17 @@ services:
   - docker
 
 before_install:
-  - docker build -t frperezr/react-test -f ./web-app/Dockerfile ./web-app
+  - docker build -t frperezr/react-test -f ./src/web-app/Dockerfile ./src/web-app
 
 script:
-  - docker run frperezr/react-test npm test -- --coverage
+  - docker run -e CI=true frperezr/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t frperezr/banco-ripley-webapp ./web-app
-  - docker build -t frperezr/banco-ripley-nginx ./nginx
-  - docker build -t frperezr/banco-ripley-auth-api ./auth-api
-  - docker build -t frperezr/banco-ripley-gateway-api ./gateway-api
-  - docker build -t frperezr/banco-ripley-products-api ./products-api
+  - docker build -t frperezr/banco-ripley-webapp ./src/web-app
+  - docker build -t frperezr/banco-ripley-nginx ./src/nginx
+  - docker build -t frperezr/banco-ripley-auth-api ./src/auth-api
+  - docker build -t frperezr/banco-ripley-gateway-api ./src/gateway-api
+  - docker build -t frperezr/banco-ripley-products-api ./src/products-api
   # Login in to the Docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
@@ -25,11 +25,11 @@ after_success:
 
 deploy:
   provider: elasticbeanstalk
-  region: $AWS_REGION
+  region: us-east-2
   app: banco-ripley
-  env: MultiDocker-env
-  bucket_name: $AWS_BUCKET_NAME
-  bucket_path: $AWS_BUCKET_PATH
+  env: BancoRipleyTest-env
+  bucket_name: elasticbeanstalk-us-east-2-052934572495
+  bucket_path: docker
   on:
     branch: development
   access_key_id: $AWS_ACCESS_KEY
