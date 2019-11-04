@@ -1,29 +1,49 @@
+DEMO: http://a4655ca4bfe9111e993eb024c865adfd-1543334622.us-east-1.elb.amazonaws.com
+
 Arquitectura
+
+![Alt text](images/architecture.png?raw=true "Architecture")
 
 # TOOLS
 
 ## AWS CLI
 
+```
 brew install awscli
+```
 
 ## KUBECTL
 
+```
 brew install kubernetes-cli
+```
 
 ## KOPS
 
+```
 brew update && brew install kops
+```
 
 ## KUBECTX
 
+```
 brew install kubectx
+```
 
 ## K9s
 
+```
 brew install derailed/k9s/k9s
+```
+
+# CONFIG FILES
+
+1. change <your_key> on docker-compose.yml for your firebase auth key
+2. change <your_key> on kubernetes-manifests/auth-api.yaml for your firebase auth key
 
 # CONFIG CLUSTER
 
+```
 aws ec2 create-key-pair --key-name ripley-test | jq -r '.KeyMaterial' > ripley-test.pem
 mv ripley-test.pem ~/.ssh/
 chmod 400 ~/.ssh/ripley-test.pem
@@ -32,9 +52,11 @@ ssh-keygen -y -f ~/.ssh/ripley-test.pem > ~/.ssh/ripley-test.pub
 export AWS_REGION=us-east-1
 export NAME=rtest.k8s.local
 export KOPS_STATE_STORE=s3://rtest.k8s.local
+```
 
 # CREATE CLUSTER
 
+```
 kops create cluster \
 --cloud aws \
 --networking kubenet \
@@ -48,17 +70,15 @@ kops create cluster \
 
 kops validate cluster
 kubectl get nodes
-
-# UPDATE MAX NODES
-
-kops edit ig nodes --state=s3://rtest.k8s.local
-kops update cluster --state=s3://rtest.k8s.local --yes
+```
 
 # ADD METRICS SERVICE
 
+```
 kubectl apply -f tools/metrics-server
 
 kops edit cluster rtest.k8s.local --state=s3://rtest.k8s.local
+```
 
 ADD
 
@@ -69,13 +89,17 @@ ADD
     authorizationMode: Webhook
 ```
 
+```
 kops update cluster --state=s3://rtest.k8s.local --yes
 kops rolling-update cluster --state=s3://rtest.k8s.local --yes
 kubectl apply -f tools/admin-role
+```
 
 # EDIT KUBE API SERVER
 
+```
 kops edit cluster rtest.k8s.local --state=s3://rtest.k8s.local
+```
 
 ADD
 
@@ -95,8 +119,10 @@ kubeAPIServer:
     - Priority
 ```
 
+```
 kops update cluster --state=s3://rtest.k8s.local --yes
 kops rolling-update cluster --state=s3://rtest.k8s.local --yes
+```
 
 # ISTIO (THIS INSTALLATION IS NOT RECOMMENDED FOR PRODUCTION!!)
 
@@ -108,8 +134,10 @@ for i in tools/istio/install/kubernetes/helm/istio-init/files/crd*yaml; do kubec
 kubectl apply -f tools/istio/install/kubernetes/istio-demo.yaml
 ```
 
+```
 kubectl get svc -n istio-system
 kubectl get pods -n istio-system
+```
 
 # PD: FOR PRODUCTION USE HELM INSTALL
 

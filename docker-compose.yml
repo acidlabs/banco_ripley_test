@@ -54,7 +54,7 @@ services:
     image: ripley-auth-api:0.0.1
     environment:
       - AUTH_PORT=3050
-      - FIREBASE_API_KEY=<your_key>
+      - FIREBASE_API_KEY=AIzaSyApdB7QPOfgEZtRWOZE9vJGXJkKPvrLDz8
     ports:
       - 3050:3050
 
