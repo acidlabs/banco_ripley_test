@@ -22,16 +22,15 @@ after_success:
   - docker push frperezr/banco-ripley-auth-api
   - docker push frperezr/banco-ripley-gateway-api
   - docker push frperezr/banco-ripley-products-api
-
-deploy:
-  provider: elasticbeanstalk
-  region: us-east-2
-  app: ripley_test
-  env: RipleyTest-env
-  bucket_name: elasticbeanstalk-us-east-2-052934572495
-  bucket_path: docker
-  on:
-    branch: development
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
+# deploy:
+#   provider: elasticbeanstalk
+#   region: us-east-2
+#   app: ripley_test
+#   env: RipleyTest-env
+#   bucket_name: elasticbeanstalk-us-east-2-052934572495
+#   bucket_path: docker
+#   on:
+#     branch: development
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key:
+#     secure: $AWS_SECRET_KEY
