@@ -53,4 +53,4 @@ spec:
             - name: GATEWAY_PORT
               value: "4000"
             - name: FIREBASE_API_KEY
-              value: AIzaSyApdB7QPOfgEZtRWOZE9vJGXJkKPvrLDz8
+              value: <your_api_key>
