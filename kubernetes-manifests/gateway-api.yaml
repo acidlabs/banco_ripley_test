@@ -52,5 +52,3 @@ spec:
               value: products-api
             - name: GATEWAY_PORT
               value: "4000"
-            - name: FIREBASE_API_KEY
-              value: <your_api_key>
