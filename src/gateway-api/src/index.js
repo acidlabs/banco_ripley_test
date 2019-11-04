@@ -16,7 +16,7 @@ const api = require("./api");
 const app = express();
 
 // define port
-const port = process.env.PORT || 4000;
+const port = process.env.GATEWAY_PORT || 4000;
 
 // define morgan for show logs
 app.use(morgan(":method :url :status :response-time ms"));
