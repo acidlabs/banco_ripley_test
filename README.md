@@ -195,4 +195,6 @@ make ki
 
 # DELETE
 
+```
 kops delete cluster --state=s3://rtest.k8s.local --name=rtest.k8s.local --yes
+```
