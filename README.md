@@ -1,6 +1,6 @@
 DEMO: http://a4655ca4bfe9111e993eb024c865adfd-1543334622.us-east-1.elb.amazonaws.com
 
-Arquitectura
+Architecture
 
 ![Alt text](images/architecture.png?raw=true "Architecture")
 
