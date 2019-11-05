@@ -45,4 +45,4 @@ spec:
             - name: AUTH_PORT
               value: "3050"
             - name: FIREBASE_API_KEY
-              value: AIzaSyApdB7QPOfgEZtRWOZE9vJGXJkKPvrLDz8
+              value: <your_key>

@@ -41,6 +41,14 @@ brew install derailed/k9s/k9s
 1. change <your_key> on docker-compose.yml for your firebase auth key
 2. change <your_key> on kubernetes-manifests/auth-api.yaml for your firebase auth key
 
+# MAKE DOCKER IMAGES FOR DEVELOPMENT (DOCKER-COMPOSE)
+
+On each folder inside /src do
+
+```
+make docker
+```
+
 # CONFIG CLUSTER
 
 ```
